@@ -8,7 +8,6 @@
   overflow: hidden;
 }
 
-/* Background rings */
 .home__rings {
   position: absolute;
   inset: 0;
@@ -34,7 +33,6 @@
   50%       { opacity: 1;   transform: scale(1.03); }
 }
 
-/* Main content */
 .home__inner {
   flex: 1;
   display: flex;
@@ -66,8 +64,13 @@
   animation: fadeUp 0.8s 0.2s both;
 }
 
+.rtl .home__eyebrow {
+  font-size: 0.86rem;
+  letter-spacing: 0.04em;
+}
+
 .home__title {
-  font-family: 'DM Serif Display', serif;
+  font-family: var(--font-display);
   font-size: clamp(2.6rem, 6vw, 5rem);
   color: var(--white);
   line-height: 1.1;
@@ -75,8 +78,12 @@
   animation: fadeUp 0.8s 0.4s both;
 }
 
+.rtl .home__title {
+  font-family: var(--font-display-ar);
+}
+
 .home__tagline {
-  font-family: 'DM Serif Display', serif;
+  font-family: var(--font-display);
   font-style: italic;
   font-size: clamp(1rem, 2vw, 1.4rem);
   color: var(--gold);
@@ -84,7 +91,11 @@
   animation: fadeUp 0.8s 0.6s both;
 }
 
-/* Circle cards */
+.rtl .home__tagline {
+  font-family: var(--font-display-ar);
+  font-style: normal;
+}
+
 .home__cards {
   display: flex;
   gap: 1.5rem;
@@ -115,10 +126,14 @@
 }
 
 .home__card-title {
-  font-family: 'DM Serif Display', serif;
+  font-family: var(--font-display);
   font-size: 1.05rem;
   color: var(--white);
   margin-bottom: 0.4rem;
+}
+
+.rtl .home__card-title {
+  font-family: var(--font-display-ar);
 }
 
 .home__card-sub {
@@ -128,7 +143,12 @@
   text-transform: uppercase;
 }
 
-/* Footer strip */
+.rtl .home__card-sub {
+  font-size: 0.85rem;
+  letter-spacing: 0.02em;
+  text-transform: none;
+}
+
 .home__footer {
   position: relative;
   z-index: 2;
@@ -139,6 +159,12 @@
   text-transform: uppercase;
   color: rgba(141, 183, 192, 0.4);
   border-top: 1px solid rgba(141, 183, 192, 0.1);
+}
+
+.rtl .home__footer {
+  font-size: 0.82rem;
+  letter-spacing: 0.03em;
+  text-transform: none;
 }
 
 @keyframes fadeUp {

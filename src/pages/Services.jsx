@@ -2,10 +2,13 @@ import { ServicesIllustration, ServicesHeroDeco } from '../components/icons/Icon
 import ServicesList from '../components/ServicesList'
 import PageNavFooter from '../components/PageNavFooter'
 import SiteFooter from '../components/SiteFooter'
-import { SERVICES } from '../data/content'
+import { useLanguage } from '../i18n/LanguageContext'
 import './InnerPage.css'
 
 export default function Services() {
+  const { t } = useLanguage()
+  const { services } = t
+
   return (
     <div className="page-wrapper">
 
@@ -14,37 +17,35 @@ export default function Services() {
         <div className="page-hero__bg" />
         <ServicesHeroDeco />
         <div className="page-hero__content">
-          <span className="label label--gold">{SERVICES.circle}</span>
-          <h1 className="page-hero__title">{SERVICES.title}</h1>
-          <p className="page-hero__slogan">{SERVICES.slogan}</p>
+          <span className="label label--gold">{services.circle}</span>
+          <h1 className="page-hero__title">{services.title}</h1>
+          <p className="page-hero__slogan">{services.slogan}</p>
         </div>
       </div>
 
       {/* Body */}
       <div className="page-body">
 
-        {/* Split: text + illustration */}
         <div className="split">
           <div className="split-text">
-            <span className="label">Business Support</span>
-            <h2 className="section-title">Promoting Brands,<br />Connecting Markets</h2>
-            {SERVICES.intro.map((p, i) => <p key={i}>{p}</p>)}
+            <span className="label">{services.introLabel}</span>
+            <h2 className="section-title">{services.introTitle}</h2>
+            {services.intro.map((p, i) => <p key={i}>{p}</p>)}
           </div>
           <div className="split-visual">
             <ServicesIllustration />
           </div>
         </div>
 
-        {/* Services */}
-        <span className="label">What We Do</span>
-        <h2 className="section-title">Services Offered</h2>
-        <ServicesList items={SERVICES.services} />
+        <span className="label">{services.servicesLabel}</span>
+        <h2 className="section-title">{services.servicesTitle}</h2>
+        <ServicesList items={services.services} />
       </div>
 
       <PageNavFooter
-        label={SERVICES.next.label === 'Contact' ? 'Get in Touch' : 'Next Circle'}
-        title={SERVICES.next.label}
-        to={SERVICES.next.path}
+        label={services.nextLabel}
+        title={services.next.title}
+        to={services.next.path}
       />
       <SiteFooter />
     </div>

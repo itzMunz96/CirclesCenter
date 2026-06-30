@@ -31,11 +31,15 @@
 
 /* ── Section titles ── */
 .section-title {
-  font-family: 'DM Serif Display', serif;
+  font-family: var(--font-display);
   font-size: clamp(1.6rem, 3vw, 2.4rem);
   color: var(--c0);
   margin-bottom: 2rem;
   line-height: 1.2;
+}
+
+.rtl .section-title {
+  font-family: var(--font-display-ar);
 }
 
 /* ── Office blocks ── */
@@ -55,9 +59,20 @@
 }
 
 .office-block__flag    { font-size: 2.5rem; line-height: 1; flex-shrink: 0; }
-.office-block__country { font-family: 'DM Serif Display', serif; font-size: 1.3rem; color: var(--white); margin-bottom: 0.3rem; }
+.office-block__country { font-family: var(--font-display); font-size: 1.3rem; color: var(--white); margin-bottom: 0.3rem; }
 .office-block__city    { font-size: 0.8rem; color: var(--c3); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.8rem; }
 .office-block__role    { font-size: 0.82rem; color: var(--c3); line-height: 1.7; }
+
+.rtl .office-block__city {
+  font-size: 0.86rem;
+  letter-spacing: 0.02em;
+  text-transform: none;
+}
+
+.rtl .office-block__role {
+  font-size: 0.92rem;
+  line-height: 1.85;
+}
 
 @media (max-width: 768px) {
   .offices-strip { grid-template-columns: 1fr; }

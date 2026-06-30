@@ -14,6 +14,11 @@
   --nav-h: 64px;
   --max-w: 1100px;
   --radius: 2px;
+
+  --font-display: 'DM Serif Display', serif;
+  --font-body: 'DM Sans', sans-serif;
+  --font-display-ar: 'Markazi Text', serif;
+  --font-body-ar: 'Cairo', sans-serif;
 }
 
 /* ── Reset ── */
@@ -28,7 +33,7 @@ html {
 }
 
 body {
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-body);
   background: var(--bg);
   color: var(--text);
   overflow-x: hidden;
@@ -38,6 +43,81 @@ body {
 a {
   text-decoration: none;
   color: inherit;
+}
+
+/* ══════════════════════════════════════
+   RTL / Arabic support
+   The .rtl wrapper around <App> flips
+   direction-sensitive utilities and
+   swaps fonts to Arabic equivalents.
+══════════════════════════════════════ */
+.rtl {
+  direction: rtl;
+  text-align: right;
+}
+
+.ltr {
+  direction: ltr;
+  text-align: left;
+}
+
+.rtl, .rtl body {
+  font-family: var(--font-body-ar);
+}
+
+.rtl .display,
+.rtl .home__title,
+.rtl .home__tagline,
+.rtl .home__card-title,
+.rtl .page-hero__title,
+.rtl .page-hero__slogan,
+.rtl .section-title,
+.rtl .contact-hero__title,
+.rtl .contact-card__value,
+.rtl .office-block__country,
+.rtl .contact-office__country,
+.rtl .page-nav-footer__title {
+  font-family: var(--font-display-ar);
+}
+
+/* Mirror split layout in RTL: the "flip" variant becomes the normal order */
+.rtl .split--flip {
+  direction: ltr;
+}
+.rtl .split--flip > * {
+  direction: rtl;
+}
+
+/* Mirror service-item dot side */
+.rtl .svc-item {
+  flex-direction: row-reverse;
+}
+
+/* Mirror office/contact blocks */
+.rtl .office-block,
+.rtl .contact-office {
+  flex-direction: row-reverse;
+  text-align: right;
+}
+
+/* Mirror page-nav-footer button arrow */
+.rtl .page-nav-footer__btn,
+.rtl .site-footer__item,
+.rtl .contact-card__action {
+  flex-direction: row-reverse;
+}
+
+.rtl .page-nav-footer {
+  flex-direction: row-reverse;
+}
+
+.rtl .site-footer {
+  flex-direction: row-reverse;
+}
+
+/* Arrow icons should flip horizontally in RTL */
+.rtl .icon-arrow {
+  transform: scaleX(-1);
 }
 
 /* ── Shared layout helpers ── */
@@ -65,11 +145,17 @@ a {
   display: block;
 }
 
+.rtl .label {
+  font-size: 0.86rem;
+  letter-spacing: 0.03em;
+  font-weight: 500;
+}
+
 .label--gold { color: var(--gold); }
 .label--light { color: var(--c3); }
 
 .display {
-  font-family: 'DM Serif Display', serif;
+  font-family: var(--font-display);
   line-height: 1.08;
 }
 
@@ -94,6 +180,11 @@ a {
   line-height: 1.9;
   color: #4a7080;
   margin-bottom: 1.2rem;
+}
+
+.rtl .split-text p {
+  font-size: 1.05rem;
+  line-height: 2;
 }
 
 .split-visual {
@@ -146,10 +237,19 @@ a {
   margin-bottom: 0.3rem;
 }
 
+.rtl .svc-title {
+  font-size: 1rem;
+}
+
 .svc-desc {
   font-size: 0.83rem;
   color: var(--muted);
   line-height: 1.75;
+}
+
+.rtl .svc-desc {
+  font-size: 0.92rem;
+  line-height: 1.9;
 }
 
 /* ── Page hero ── */
@@ -177,6 +277,12 @@ a {
   opacity: 0.18;
 }
 
+.rtl .page-hero__deco {
+  right: auto;
+  left: 0;
+  transform: scaleX(-1);
+}
+
 .page-hero__content {
   position: relative;
   z-index: 2;
@@ -184,7 +290,7 @@ a {
 }
 
 .page-hero__title {
-  font-family: 'DM Serif Display', serif;
+  font-family: var(--font-display);
   font-size: clamp(2.2rem, 5vw, 4.5rem);
   line-height: 1.08;
   color: var(--white);
@@ -192,10 +298,14 @@ a {
 }
 
 .page-hero__slogan {
-  font-family: 'DM Serif Display', serif;
+  font-family: var(--font-display);
   font-style: italic;
   font-size: 1.1rem;
   color: var(--c3);
+}
+
+.rtl .page-hero__slogan {
+  font-style: normal;
 }
 
 /* ── Responsive ── */
@@ -206,6 +316,9 @@ a {
   }
   .split--flip {
     direction: ltr;
+  }
+  .rtl .split--flip {
+    direction: rtl;
   }
   .services-grid {
     grid-template-columns: 1fr;

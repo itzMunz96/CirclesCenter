@@ -28,7 +28,7 @@ export function LogoMarkLarge() {
 
 export function ArrowRight({ size = 16 }) {
   return (
-    <svg width={size} height={size} viewBox="0 0 16 16" fill="none">
+    <svg className="icon-arrow" width={size} height={size} viewBox="0 0 16 16" fill="none">
       <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   )
@@ -158,8 +158,6 @@ export function TradeIllustration() {
       <circle cx="280" cy="118" r="5" fill="#c8a44a" />
       <circle cx="82"  cy="195" r="4" fill="#8db7c0" />
       <circle cx="298" cy="192" r="4" fill="#8db7c0" />
-      <text x="88"  y="108" fontFamily="DM Sans,sans-serif" fontSize="9" fill="#c8a44a">Khartoum</text>
-      <text x="284" y="111" fontFamily="DM Sans,sans-serif" fontSize="9" fill="#c8a44a">Muscat</text>
       <rect x="148" y="310" width="84" height="18" rx="4" fill="#0f3d50" opacity=".6" />
       <path d="M148 310 Q190 295 232 310" fill="#0f3d50" opacity=".3" />
       <rect x="172" y="296" width="12" height="14" rx="1" fill="#4b8697" opacity=".5" />
