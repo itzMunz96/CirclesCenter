@@ -3,8 +3,8 @@ export const COMPANY = {
   nameShort: 'CSC',
   tagline: 'Solutions Around You',
   founded: 1995,
-  phone:   '+___ ___ ____',       // ← replace with real number
-  email:   'info@csc.com',        // ← replace with real email
+  phone:   '+249 183 888 888',       // ← replace with real number
+  email:   'info@circlescenter.com',        // ← replace with real email
 }
 
 export const OFFICES = [
