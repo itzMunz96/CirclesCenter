@@ -1,4 +1,4 @@
-# Circles Services Center — React Website
+# Circles Services Center — React Website (EN/AR)
 
 ## Quick Start
 
@@ -7,7 +7,7 @@ npm install
 npm run dev
 ```
 
-Then open http://localhost:5173 in your browser.
+Open http://localhost:5173
 
 ## Build for Production
 
@@ -16,33 +16,44 @@ npm run build
 npm run preview
 ```
 
+## What's New: Language Switching
+
+A toggle button now sits in the top navigation bar (top-right in English, top-left in Arabic).
+Clicking it switches the entire site between English and Arabic instantly — including:
+
+- All page text and headings
+- Layout direction (LTR ↔ RTL)
+- Fonts (DM Serif/DM Sans for English, Markazi Text/Cairo for Arabic)
+- Mirrored layouts (image/text split sections, icon arrows, office cards, footers)
+
+The chosen language is saved in the browser (`localStorage`), so it persists on refresh.
+
 ## Project Structure
 
 ```
 csc/
-├── index.html                      # HTML entry point
-├── vite.config.js                  # Vite + React plugin config
+├── index.html
+├── vite.config.js
 ├── package.json
 └── src/
-    ├── main.jsx                    # React root, BrowserRouter
-    ├── App.jsx                     # Route definitions
+    ├── main.jsx                 # Wraps app in LanguageProvider + BrowserRouter
+    ├── App.jsx                  # Routes + applies .rtl / .ltr wrapper class
     │
-    ├── data/
-    │   └── content.js              # ★ All text content & config lives here
-    │                               #   Update phone, email, copy from here
+    ├── i18n/
+    │   ├── translations.js      # ★ ALL text content — English & Arabic in one file
+    │   └── LanguageContext.jsx  # React context: current lang, toggle fn, t() object
     │
     ├── styles/
-    │   ├── global.css              # Design tokens, reset, shared layout
-    │   ├── nav.css                 # Navigation styles
-    │   └── footer.css              # SiteFooter + PageNavFooter styles
+    │   ├── global.css           # Design tokens, reset, RTL mirroring rules
+    │   ├── nav.css               # Nav bar + language toggle button styles
+    │   └── footer.css
     │
     ├── components/
-    │   ├── Nav.jsx                 # Top navigation bar
-    │   ├── SiteFooter.jsx          # Slim footer with phone & email
-    │   ├── PageNavFooter.jsx       # Dark "next page" footer band
-    │   ├── ServicesList.jsx        # Reusable 2-col services grid
-    │   └── icons/
-    │       └── Icons.jsx           # All SVG icons & illustrations
+    │   ├── Nav.jsx               # Top nav — reads t.nav.*, has language button
+    │   ├── SiteFooter.jsx
+    │   ├── PageNavFooter.jsx
+    │   ├── ServicesList.jsx
+    │   └── icons/Icons.jsx       # All SVG icons & illustrations
     │
     └── pages/
         ├── Home.jsx / Home.css
@@ -50,37 +61,43 @@ csc/
         ├── Trade.jsx
         ├── Services.jsx
         ├── Contact.jsx / Contact.css
-        └── InnerPage.css           # Shared hero & office styles
+        └── InnerPage.css
 ```
 
-## Updating Contact Details
+## Editing Content
 
-Open `src/data/content.js` and update the `COMPANY` object:
+**All text lives in one place:** `src/i18n/translations.js`
+
+It's a single object with two top-level keys, `en` and `ar`, each containing
+identical structure (company info, nav labels, every page's copy). To change
+any text — English or Arabic — edit it there. No other file needs touching.
 
 ```js
-export const COMPANY = {
-  phone: '+249 912 345 678',   // your real phone number
-  email: 'info@csc-ltd.com',  // your real email
-  ...
+export const translations = {
+  en: { company: { phone: '+___ ___ ____', email: 'info@csc.com', ... }, ... },
+  ar: { company: { phone: '+___ ___ ____', email: 'info@csc.com', ... }, ... },
 }
 ```
 
-That's it — the number and email automatically appear on the Contact page and in the footer of every page.
+Update the phone/email in **both** `en.company` and `ar.company` (they're shared
+data, just duplicated for simplicity — keep them identical).
 
-## Pages & Routes
+## How the Language System Works
 
-| Route       | Page         |
-|-------------|--------------|
-| `/`         | Home         |
-| `/mining`   | Mining       |
-| `/trade`    | Import/Export|
-| `/services` | Services     |
-| `/contact`  | Contact      |
+1. `LanguageContext.jsx` holds the current language (`'en'` or `'ar'`) in state,
+   persisted to `localStorage`.
+2. It exposes `t`, an object containing only the active language's translations.
+3. Every component calls `const { t } = useLanguage()` and reads `t.section.key`.
+4. `App.jsx` wraps everything in a `.rtl` or `.ltr` div, which `global.css` uses
+   to mirror layouts, flip arrows, and swap fonts automatically.
+
+To add a third language, duplicate the `en` block in `translations.js`, translate
+the values, give it a key (e.g. `fr`), and add a button/cycle option in `Nav.jsx`.
 
 ## Tech Stack
 
-- **React 18** with **React Router v6**
-- **Vite** for dev server & build
-- **Pure CSS** (no Tailwind, no UI library)
-- **DM Serif Display + DM Sans** from Google Fonts
-- All illustrations are inline SVG — no external image files needed
+- **React 18** + **React Router v6**
+- **Vite** for dev/build
+- **Pure CSS** — no Tailwind, no UI library
+- **DM Serif Display + DM Sans** (English) / **Markazi Text + Cairo** (Arabic)
+- All illustrations are inline SVG

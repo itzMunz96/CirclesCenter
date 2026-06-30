@@ -141,8 +141,8 @@ export const translations = {
       nameShort: 'CSC',
       tagline: 'حلول تدور حولك',
       founded: 1995,
-      phone: '+___ ___ ____',
-      email: 'info@csc.com',
+      phone:   '+249 183 888 888',       // ← replace with real number
+      email:   'info@circlescenter.com',
     },
 
     nav: {
