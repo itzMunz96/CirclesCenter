@@ -1,10 +1,13 @@
 import { Link } from 'react-router-dom'
 import { PhoneIcon, EmailIcon, ArrowRight, ContactRings } from '../components/icons/Icons'
 import SiteFooter from '../components/SiteFooter'
-import { COMPANY, OFFICES } from '../data/content'
+import { useLanguage } from '../i18n/LanguageContext'
 import './Contact.css'
 
 export default function Contact() {
+  const { t } = useLanguage()
+  const { contact, company, offices } = t
+
   return (
     <div className="page-wrapper">
 
@@ -14,28 +17,24 @@ export default function Contact() {
           <ContactRings />
         </div>
         <div className="contact-hero__content">
-          <span className="label label--gold">Reach Out</span>
-          <h1 className="contact-hero__title">Contact Us</h1>
-          <p className="contact-hero__sub">
-            We'd love to hear from you. Reach us through any of the channels below.
-          </p>
+          <span className="label label--gold">{contact.label}</span>
+          <h1 className="contact-hero__title">{contact.title}</h1>
+          <p className="contact-hero__sub">{contact.sub}</p>
         </div>
       </div>
 
       {/* Body */}
       <div className="page-body">
 
-        {/* Phone & Email cards */}
         <div className="contact-cards">
-
           <div className="contact-card">
             <div className="contact-card__icon">
               <PhoneIcon />
             </div>
-            <span className="label">Phone</span>
-            <div className="contact-card__value">{COMPANY.phone}</div>
-            <a className="contact-card__action" href={`tel:${COMPANY.phone}`}>
-              Call now <ArrowRight size={14} />
+            <span className="label">{contact.phoneLabel}</span>
+            <div className="contact-card__value">{company.phone}</div>
+            <a className="contact-card__action" href={`tel:${company.phone}`}>
+              {contact.phoneAction} <ArrowRight size={14} />
             </a>
           </div>
 
@@ -43,20 +42,18 @@ export default function Contact() {
             <div className="contact-card__icon">
               <EmailIcon />
             </div>
-            <span className="label">Email</span>
-            <div className="contact-card__value">{COMPANY.email}</div>
-            <a className="contact-card__action" href={`mailto:${COMPANY.email}`}>
-              Send email <ArrowRight size={14} />
+            <span className="label">{contact.emailLabel}</span>
+            <div className="contact-card__value">{company.email}</div>
+            <a className="contact-card__action" href={`mailto:${company.email}`}>
+              {contact.emailAction} <ArrowRight size={14} />
             </a>
           </div>
-
         </div>
 
-        {/* Offices */}
-        <span className="label" style={{ marginTop: '4rem', display: 'block' }}>Our Offices</span>
-        <h2 className="section-title">Where to Find Us</h2>
+        <span className="label" style={{ marginTop: '4rem', display: 'block' }}>{contact.officesLabel}</span>
+        <h2 className="section-title">{contact.officesTitle}</h2>
         <div className="contact-offices">
-          {OFFICES.map((o) => (
+          {offices.map((o) => (
             <div className="contact-office" key={o.country}>
               <span className="contact-office__flag">{o.flag}</span>
               <div>
@@ -73,11 +70,11 @@ export default function Contact() {
       {/* Back to home nav */}
       <div className="page-nav-footer">
         <div>
-          <div className="page-nav-footer__label">Back to Start</div>
-          <div className="page-nav-footer__title">Home</div>
+          <div className="page-nav-footer__label">{contact.backLabel}</div>
+          <div className="page-nav-footer__title">{contact.backTitle}</div>
         </div>
         <Link to="/" className="page-nav-footer__btn">
-          <span>Go Home</span>
+          <span>{contact.goHome}</span>
           <ArrowRight />
         </Link>
       </div>

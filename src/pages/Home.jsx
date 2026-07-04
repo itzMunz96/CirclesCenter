@@ -1,15 +1,14 @@
 import { Link } from 'react-router-dom'
 import { LogoMarkLarge, MiningIcon, TradeIcon, ServicesIcon } from '../components/icons/Icons'
-import { COMPANY, OFFICES } from '../data/content'
+import { useLanguage } from '../i18n/LanguageContext'
 import './Home.css'
 
-const CIRCLES = [
-  { to: '/mining',   Icon: MiningIcon,   title: 'Mining',          sub: "Earth's Wealth" },
-  { to: '/trade',    Icon: TradeIcon,    title: 'Import & Export', sub: 'Connecting the World' },
-  { to: '/services', Icon: ServicesIcon, title: 'Services',        sub: 'Integrated & Professional' },
-]
+const ICONS = [MiningIcon, TradeIcon, ServicesIcon]
 
 export default function Home() {
+  const { t } = useLanguage()
+  const { company, home, offices } = t
+
   return (
     <div className="home">
       {/* animated concentric rings background */}
@@ -23,33 +22,35 @@ export default function Home() {
       </div>
 
       <main className="home__inner">
-        {/* Logo */}
         <div className="home__logo">
           <LogoMarkLarge />
         </div>
 
         <p className="home__eyebrow">
-          {COMPANY.name} · Est. {COMPANY.founded}
+          {company.name} · {home.eyebrowSuffix} {company.founded}
         </p>
-        <h1 className="home__title">Three Circles.<br />One Vision.</h1>
-        <p className="home__tagline">{COMPANY.tagline}</p>
+        <h1 className="home__title">{home.title1}<br />{home.title2}</h1>
+        <p className="home__tagline">{company.tagline}</p>
 
         {/* Circle entry cards */}
         <div className="home__cards">
-          {CIRCLES.map(({ to, Icon, title, sub }) => (
-            <Link key={to} to={to} className="home__card">
-              <div className="home__card-icon">
-                <Icon />
-              </div>
-              <div className="home__card-title">{title}</div>
-              <div className="home__card-sub">{sub}</div>
-            </Link>
-          ))}
+          {home.cards.map(({ to, title, sub }, i) => {
+            const Icon = ICONS[i]
+            return (
+              <Link key={to} to={to} className="home__card">
+                <div className="home__card-icon">
+                  <Icon />
+                </div>
+                <div className="home__card-title">{title}</div>
+                <div className="home__card-sub">{sub}</div>
+              </Link>
+            )
+          })}
         </div>
       </main>
 
       <footer className="home__footer">
-        {OFFICES.map((o) => o.city).join(' · ')} · Est. {COMPANY.founded}
+        {offices.map((o) => o.city).join(' · ')} · {home.footerSuffix} {company.founded}
       </footer>
     </div>
   )

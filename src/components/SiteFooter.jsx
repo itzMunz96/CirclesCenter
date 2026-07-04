@@ -1,26 +1,28 @@
-import { Link } from 'react-router-dom'
 import { PhoneIconSmall, EmailIconSmall } from './icons/Icons'
-import { COMPANY } from '../data/content'
+import { useLanguage } from '../i18n/LanguageContext'
 import '../styles/footer.css'
 
 export default function SiteFooter() {
+  const { t } = useLanguage()
+  const { company } = t
+
   return (
     <footer className="site-footer">
-      <span className="site-footer__brand">{COMPANY.name}</span>
+      <span className="site-footer__brand">{company.name}</span>
 
       <div className="site-footer__contacts">
-        <a className="site-footer__item" href={`tel:${COMPANY.phone}`}>
+        <a className="site-footer__item" href={`tel:${company.phone}`}>
           <PhoneIconSmall />
-          {COMPANY.phone}
+          {company.phone}
         </a>
-        <a className="site-footer__item" href={`mailto:${COMPANY.email}`}>
+        <a className="site-footer__item" href={`mailto:${company.email}`}>
           <EmailIconSmall />
-          {COMPANY.email}
+          {company.email}
         </a>
       </div>
 
       <span className="site-footer__copy">
-        © {new Date().getFullYear()} {COMPANY.nameShort} · Est. {COMPANY.founded}
+        © {new Date().getFullYear()} {company.nameShort}
       </span>
     </footer>
   )

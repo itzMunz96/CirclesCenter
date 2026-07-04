@@ -2,10 +2,13 @@ import { TradeIllustration, TradeHeroDeco } from '../components/icons/Icons'
 import ServicesList from '../components/ServicesList'
 import PageNavFooter from '../components/PageNavFooter'
 import SiteFooter from '../components/SiteFooter'
-import { TRADE, OFFICES } from '../data/content'
+import { useLanguage } from '../i18n/LanguageContext'
 import './InnerPage.css'
 
 export default function Trade() {
+  const { t } = useLanguage()
+  const { trade, offices } = t
+
   return (
     <div className="page-wrapper">
 
@@ -14,37 +17,34 @@ export default function Trade() {
         <div className="page-hero__bg" />
         <TradeHeroDeco />
         <div className="page-hero__content">
-          <span className="label label--gold">{TRADE.circle}</span>
-          <h1 className="page-hero__title">{TRADE.title}</h1>
-          <p className="page-hero__slogan">{TRADE.slogan}</p>
+          <span className="label label--gold">{trade.circle}</span>
+          <h1 className="page-hero__title">{trade.title}</h1>
+          <p className="page-hero__slogan">{trade.slogan}</p>
         </div>
       </div>
 
       {/* Body */}
       <div className="page-body">
 
-        {/* Split: illustration left, text right */}
         <div className="split split--flip">
           <div className="split-text">
-            <span className="label">Global Trade Operations</span>
-            <h2 className="section-title">Sudan to the World, and Back</h2>
-            {TRADE.intro.map((p, i) => <p key={i}>{p}</p>)}
+            <span className="label">{trade.introLabel}</span>
+            <h2 className="section-title">{trade.introTitle}</h2>
+            {trade.intro.map((p, i) => <p key={i}>{p}</p>)}
           </div>
           <div className="split-visual">
             <TradeIllustration />
           </div>
         </div>
 
-        {/* Services */}
-        <span className="label">What We Do</span>
-        <h2 className="section-title">Trade Services</h2>
-        <ServicesList items={TRADE.services} />
+        <span className="label">{trade.servicesLabel}</span>
+        <h2 className="section-title">{trade.servicesTitle}</h2>
+        <ServicesList items={trade.services} />
 
-        {/* Offices */}
-        <span className="label" style={{ marginTop: '4rem', display: 'block' }}>Our Offices</span>
-        <h2 className="section-title">Where We Operate</h2>
+        <span className="label" style={{ marginTop: '4rem', display: 'block' }}>{trade.officesLabel}</span>
+        <h2 className="section-title">{trade.officesTitle}</h2>
         <div className="offices-strip">
-          {OFFICES.map((o) => (
+          {offices.map((o) => (
             <div className="office-block" key={o.country}>
               <span className="office-block__flag">{o.flag}</span>
               <div>
@@ -58,9 +58,9 @@ export default function Trade() {
       </div>
 
       <PageNavFooter
-        label="Next Circle"
-        title={TRADE.next.label}
-        to={TRADE.next.path}
+        label={trade.nextLabel}
+        title={trade.next.title}
+        to={trade.next.path}
       />
       <SiteFooter />
     </div>

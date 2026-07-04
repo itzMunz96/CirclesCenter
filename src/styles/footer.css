@@ -16,8 +16,13 @@
   margin-bottom: 0.4rem;
 }
 
+.rtl .page-nav-footer__label {
+  font-size: 0.85rem;
+  letter-spacing: 0.03em;
+}
+
 .page-nav-footer__title {
-  font-family: 'DM Serif Display', serif;
+  font-family: var(--font-display);
   font-size: 1.5rem;
   color: var(--white);
 }
@@ -36,6 +41,11 @@
   text-transform: uppercase;
   transition: background 0.2s, border-color 0.2s, color 0.2s;
   text-decoration: none;
+}
+
+.rtl .page-nav-footer__btn {
+  font-size: 0.88rem;
+  letter-spacing: 0.02em;
 }
 
 .page-nav-footer__btn:hover {
@@ -61,7 +71,7 @@
 }
 
 .site-footer__brand {
-  font-family: 'DM Serif Display', serif;
+  font-family: var(--font-display);
   font-size: 0.9rem;
   color: rgba(141, 183, 192, 0.55);
 }
@@ -90,6 +100,10 @@
   color: var(--gold);
 }
 
+.rtl .site-footer__item {
+  font-size: 0.86rem;
+}
+
 .site-footer__item svg {
   width: 13px;
   height: 13px;
@@ -103,8 +117,15 @@
   color: rgba(141, 183, 192, 0.28);
 }
 
+.rtl .site-footer__copy {
+  font-size: 0.78rem;
+  letter-spacing: 0.02em;
+}
+
 @media (max-width: 768px) {
   .page-nav-footer { flex-direction: column; text-align: center; }
+  .rtl .page-nav-footer { flex-direction: column; }
   .site-footer { flex-direction: column; align-items: flex-start; }
+  .rtl .site-footer { align-items: flex-end; }
   .site-footer__contacts { flex-direction: column; gap: 0.8rem; }
 }
