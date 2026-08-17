@@ -23,7 +23,7 @@ export const translations = {
         flag: '🇸🇩',
         country: 'Sudan',
         city: 'Khartoum',
-        role: 'Mineral exploration & mining operations. Our founding headquarters since 1996.',
+        role: 'Mineral exploration & mining operations. Our founding headquarters since 1995.',
       },
       {
         flag: '🇴🇲',
@@ -141,7 +141,7 @@ export const translations = {
       nameShort: 'CSC',
       tagline: 'حلول تدور حولك',
       founded: 1995,
-      phone:   '+249 183 888 888',       // ← replace with real number
+      phone:   '+39 351 570 8557',       // ← replace with real number
       email:   'info@circlescenter.com',
     },
 
@@ -159,7 +159,7 @@ export const translations = {
         flag: '🇸🇩',
         country: 'السودان',
         city: 'الخرطوم',
-        role: 'أعمال البحث والتنقيب عن المعادن. مقرنا الرئيسي منذ التأسيس عام 1996.',
+        role: 'أعمال البحث والتنقيب عن المعادن. مقرنا الرئيسي منذ التأسيس عام 1995.',
       },
       {
         flag: '🇴🇲',

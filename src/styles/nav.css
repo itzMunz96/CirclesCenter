@@ -1,105 +1,103 @@
 .nav {
   position: fixed;
   top: 0;
-  left: 0;
-  right: 0;
+  inset-inline: 0;
   z-index: 99;
   height: var(--nav-h);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 3rem;
+  padding-inline: var(--gutter);
   border-bottom: 1px solid rgba(44, 116, 136, 0.12);
   transition: background 0.3s;
 }
 
-.nav--light {
-  background: var(--bg);
-}
+.nav--light { background: var(--bg); }
 
 .nav--dark {
-  background: rgba(8, 48, 63, 0.96);
-  border-bottom-color: rgba(141, 183, 192, 0.08);
-  backdrop-filter: blur(12px);
+  /* No backdrop-filter here: this nav sits over the animating hero rings,
+     and blurring a moving backdrop forces a repaint every frame. The
+     background is 96% opaque, so the blur was never visible anyway. */
+  background: rgba(8, 48, 63, 0.97);
+  border-bottom-color: rgba(141, 183, 192, 0.1);
 }
 
-/* Logo */
+/* ── Logo ── */
 .nav__logo {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  cursor: pointer;
-  text-decoration: none;
+  gap: 0.7rem;
+  min-width: 0;
 }
 
-.nav__logo svg {
-  width: 32px;
-  height: 32px;
-  flex-shrink: 0;
-}
+/* 34px: the full mark carries four rings plus orbit dots, so it needs a
+   little more room than the old simplified three-ring version. */
+.nav__logo svg { width: 34px; height: 34px; flex-shrink: 0; }
 
 .nav__logo-name {
   font-family: var(--font-display);
-  font-size: 1rem;
-  letter-spacing: 0.01em;
+  font-size: clamp(0.85rem, 2.4vw, 1rem);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   transition: color 0.3s;
 }
 
+/* Markazi Text sits optically smaller than DM Serif Display at the same
+   pixel size, so the Arabic wordmark needs ~1.25x to match the nav tabs. */
 .rtl .nav__logo-name {
-  font-family: var(--font-display-ar);
+  font-size: clamp(1.05rem, 3vw, 1.28rem);
+  line-height: 1.25;
 }
 
 .nav--light .nav__logo-name { color: var(--c0); }
 .nav--dark  .nav__logo-name { color: var(--c3); }
 
-/* Right-side group: tabs + language toggle */
+/* ── Right cluster ── */
 .nav__right {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.25rem;
 }
 
-/* Tabs */
-.nav__tabs {
-  display: flex;
-}
+/* ── Desktop tabs ── */
+.nav__tabs { display: flex; }
 
 .nav__tab {
-  padding: 0 1.4rem;
+  padding-inline: clamp(0.7rem, 1.6vw, 1.3rem);
   height: var(--nav-h);
   display: flex;
   align-items: center;
-  font-size: 0.78rem;
+  font-size: clamp(0.72rem, 1.5vw, 0.78rem);
   font-weight: 500;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  cursor: pointer;
   border-bottom: 2px solid transparent;
   transition: color 0.2s, border-color 0.2s;
   white-space: nowrap;
-  text-decoration: none;
 }
 
 .rtl .nav__tab {
-  font-size: 0.86rem;
-  letter-spacing: 0.01em;
+  font-size: clamp(0.86rem, 1.9vw, 0.94rem);
+  letter-spacing: 0;
+  text-transform: none;
 }
 
-.nav--light .nav__tab         { color: var(--muted); }
-.nav--light .nav__tab:hover   { color: var(--c1); }
-.nav--light .nav__tab.active  { color: var(--c0); border-bottom-color: var(--gold); }
+.nav--light .nav__tab        { color: var(--muted); }
+.nav--light .nav__tab:hover  { color: var(--c1); }
+.nav--light .nav__tab.active { color: var(--c0); border-bottom-color: var(--gold); }
 
-.nav--dark  .nav__tab         { color: rgba(141, 183, 192, 0.65); }
-.nav--dark  .nav__tab:hover   { color: var(--white); }
-.nav--dark  .nav__tab.active  { color: var(--white); border-bottom-color: var(--gold); }
+.nav--dark .nav__tab         { color: rgba(141, 183, 192, 0.65); }
+.nav--dark .nav__tab:hover   { color: var(--white); }
+.nav--dark .nav__tab.active  { color: var(--white); border-bottom-color: var(--gold); }
 
-/* Language toggle button */
+/* ── Language toggle ── */
 .nav__lang {
-  margin-inline-start: 0.8rem;
-  padding: 0.45rem 1rem;
-  font-size: 0.8rem;
+  margin-inline-start: 0.7rem;
+  padding: 0.5rem 1rem;
+  min-height: 40px;
+  font-size: clamp(0.76rem, 1.7vw, 0.82rem);
   font-weight: 500;
-  letter-spacing: 0.04em;
   border-radius: 999px;
   cursor: pointer;
   background: transparent;
@@ -110,27 +108,153 @@
 
 .nav--light .nav__lang {
   color: var(--c1);
-  border-color: rgba(44, 116, 136, 0.3);
+  border-color: rgba(44, 116, 136, 0.35);
 }
 .nav--light .nav__lang:hover {
   background: var(--c1);
-  color: var(--white);
   border-color: var(--c1);
+  color: var(--white);
 }
 
 .nav--dark .nav__lang {
   color: var(--c3);
-  border-color: rgba(141, 183, 192, 0.3);
+  border-color: rgba(141, 183, 192, 0.35);
 }
 .nav--dark .nav__lang:hover {
-  background: var(--gold);
+  background: var(--c3);
+  border-color: var(--c3);
   color: var(--c0);
-  border-color: var(--gold);
 }
 
-@media (max-width: 768px) {
-  .nav { padding: 0 1.2rem; }
+/* ── Hamburger button (hidden on desktop) ── */
+.nav__burger {
+  display: none;
+  width: 44px;
+  height: 44px;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  margin-inline-start: 0.3rem;
+  flex-shrink: 0;
+}
+
+.nav__burger span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  border-radius: 2px;
+  position: relative;
+  transition: background 0.2s;
+}
+
+.nav__burger span::before,
+.nav__burger span::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  width: 22px;
+  height: 2px;
+  border-radius: 2px;
+  background: inherit;
+  transition: transform 0.28s ease, top 0.22s ease;
+}
+
+.nav__burger span::before { top: -7px; }
+.nav__burger span::after  { top: 7px; }
+
+.nav--light .nav__burger span,
+.nav--light .nav__burger span::before,
+.nav--light .nav__burger span::after { background: var(--c0); }
+
+.nav--dark .nav__burger span,
+.nav--dark .nav__burger span::before,
+.nav--dark .nav__burger span::after { background: var(--c3); }
+
+/* Burger → X */
+.nav__burger.open span { background: transparent !important; }
+.nav__burger.open span::before { top: 0; transform: rotate(45deg); }
+.nav__burger.open span::after  { top: 0; transform: rotate(-45deg); }
+
+/* ── Mobile drawer ── */
+.nav__drawer {
+  position: fixed;
+  top: var(--nav-h);
+  inset-inline: 0;
+  z-index: 98;
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem 0 1.2rem;
+  border-bottom: 1px solid rgba(141, 183, 192, 0.15);
+  transform: translateY(-8px);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.25s ease, opacity 0.25s ease;
+  max-height: calc(100dvh - var(--nav-h));
+  overflow-y: auto;
+}
+
+.nav__drawer.open {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.nav__drawer--light { background: var(--bg); }
+
+.nav__drawer--dark {
+  background: rgba(8, 48, 63, 0.99);
+}
+
+.nav__drawer-tab {
+  padding: 1rem var(--gutter);
+  min-height: 52px;
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+  font-weight: 500;
+  border-inline-start: 3px solid transparent;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+
+.nav__drawer--light .nav__drawer-tab        { color: var(--text); }
+.nav__drawer--light .nav__drawer-tab:hover  { background: rgba(44, 116, 136, 0.05); }
+.nav__drawer--light .nav__drawer-tab.active { color: var(--c0); border-inline-start-color: var(--gold); background: rgba(44, 116, 136, 0.06); }
+
+.nav__drawer--dark .nav__drawer-tab        { color: var(--c3); }
+.nav__drawer--dark .nav__drawer-tab:hover  { background: rgba(255, 255, 255, 0.05); }
+.nav__drawer--dark .nav__drawer-tab.active { color: var(--white); border-inline-start-color: var(--gold); background: rgba(255, 255, 255, 0.06); }
+
+/* Backdrop behind drawer */
+.nav__backdrop {
+  position: fixed;
+  inset: 0;
+  top: var(--nav-h);
+  z-index: 97;
+  background: rgba(8, 48, 63, 0.35);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+
+.nav__backdrop.open { opacity: 1; pointer-events: auto; }
+
+/* ════════════════════════════════════════
+   BREAKPOINT: swap tabs for hamburger
+   960px because Arabic labels run long
+════════════════════════════════════════ */
+@media (max-width: 960px) {
+  .nav__tabs   { display: none; }
+  .nav__burger { display: flex; }
+}
+
+@media (min-width: 961px) {
+  .nav__drawer, .nav__backdrop { display: none; }
+}
+
+/* Very narrow phones: drop the wordmark, keep the logo circle */
+@media (max-width: 400px) {
   .nav__logo-name { display: none; }
-  .nav__tab { padding: 0 0.7rem; font-size: 0.65rem; }
-  .nav__lang { padding: 0.4rem 0.7rem; font-size: 0.68rem; margin-inline-start: 0.4rem; }
+  .nav__lang { padding: 0.45rem 0.8rem; margin-inline-start: 0.3rem; }
 }

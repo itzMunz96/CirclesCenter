@@ -4,25 +4,25 @@ import '../styles/footer.css'
 
 export default function SiteFooter() {
   const { t } = useLanguage()
-  const { company } = t
+  const { name, nameShort, phone, email, founded } = t.company
 
   return (
     <footer className="site-footer">
-      <span className="site-footer__brand">{company.name}</span>
+      <span className="site-footer__brand">{name}</span>
 
       <div className="site-footer__contacts">
-        <a className="site-footer__item" href={`tel:${company.phone}`}>
+        <a className="site-footer__item" href={`tel:${phone.replace(/\s/g, '')}`}>
           <PhoneIconSmall />
-          {company.phone}
+          {phone}
         </a>
-        <a className="site-footer__item" href={`mailto:${company.email}`}>
+        <a className="site-footer__item" href={`mailto:${email}`}>
           <EmailIconSmall />
-          {company.email}
+          {email}
         </a>
       </div>
 
       <span className="site-footer__copy">
-        © {new Date().getFullYear()} {company.nameShort}
+        © {new Date().getFullYear()} {nameShort} · {founded}
       </span>
     </footer>
   )
