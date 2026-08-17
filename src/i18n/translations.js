@@ -5,7 +5,7 @@ export const translations = {
       nameShort: 'CSC',
       tagline: 'Solutions Around You',
       founded: 1995,
-      phone:   '+249 183 888 888',       // ← replace with real number
+      phone:   '+39 351 570 8557',       // ← replace with real number
       email:   'info@circlescenter.com',
     },
 
