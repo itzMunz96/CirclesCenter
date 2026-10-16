@@ -1,79 +1,63 @@
-/* ── Page Hero variants ── */
-.page-hero--mining .page-hero__bg {
-  background: linear-gradient(135deg, #081e26 0%, #0f3d50 50%, #1a6070 100%);
-}
-.page-hero--mining .page-hero__bg::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(ellipse at 70% 50%, rgba(200, 164, 74, 0.12) 0%, transparent 65%);
-}
-
-.page-hero--trade .page-hero__bg {
-  background: linear-gradient(135deg, #0d2e38 0%, #1a5a6e 50%, #2c7488 100%);
-}
-.page-hero--trade .page-hero__bg::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(ellipse at 30% 60%, rgba(141, 183, 192, 0.15) 0%, transparent 60%);
-}
-
-.page-hero--services .page-hero__bg {
-  background: linear-gradient(135deg, #0c2830 0%, #174f60 50%, #2a7585 100%);
-}
-.page-hero--services .page-hero__bg::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(ellipse at 60% 30%, rgba(200, 164, 74, 0.1) 0%, transparent 60%);
-}
-
-/* ── Section titles ── */
-.section-title {
-  font-family: var(--font-display);
-  font-size: clamp(1.6rem, 3vw, 2.4rem);
-  color: var(--c0);
-  margin-bottom: 2rem;
-  line-height: 1.2;
-}
-
-.rtl .section-title {
-  font-family: var(--font-display-ar);
-}
-
-/* ── Office blocks ── */
+/* ── Office blocks (used on Trade page) ── */
 .offices-strip {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1.5rem;
-  margin-top: 2rem;
+  grid-template-columns: repeat(2, 1fr);
+  gap: clamp(1rem, 3vw, 1.5rem);
+  margin-top: clamp(2rem, 5vw, 4rem);
 }
 
 .office-block {
   background: var(--c0);
-  padding: 2.5rem;
+  color: var(--white);
+  padding: clamp(1.5rem, 4vw, 2.5rem);
   display: flex;
-  gap: 1.5rem;
+  gap: clamp(1rem, 3vw, 1.5rem);
   align-items: flex-start;
 }
 
-.office-block__flag    { font-size: 2.5rem; line-height: 1; flex-shrink: 0; }
-.office-block__country { font-family: var(--font-display); font-size: 1.3rem; color: var(--white); margin-bottom: 0.3rem; }
-.office-block__city    { font-size: 0.8rem; color: var(--c3); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.8rem; }
-.office-block__role    { font-size: 0.82rem; color: var(--c3); line-height: 1.7; }
+.office-block__flag {
+  font-size: clamp(2rem, 6vw, 2.5rem);
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.office-block__country {
+  font-family: var(--font-display);
+  font-size: clamp(1.15rem, 3.4vw, 1.3rem);
+  color: var(--white);
+  margin-bottom: 0.3rem;
+}
+
+/* Markazi Text runs optically smaller than DM Serif Display. */
+.rtl .office-block__country {
+  font-size: clamp(1.32rem, 4vw, 1.55rem);
+}
+
+.office-block__city {
+  font-size: clamp(0.76rem, 2.1vw, 0.8rem);
+  color: var(--c3);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 0.8rem;
+}
 
 .rtl .office-block__city {
-  font-size: 0.86rem;
-  letter-spacing: 0.02em;
+  font-size: clamp(0.86rem, 2.6vw, 0.9rem);
+  letter-spacing: 0;
   text-transform: none;
 }
 
-.rtl .office-block__role {
-  font-size: 0.92rem;
-  line-height: 1.85;
+.office-block__role {
+  font-size: clamp(0.82rem, 2.2vw, 0.86rem);
+  color: var(--c3);
+  line-height: 1.7;
 }
 
-@media (max-width: 768px) {
+.rtl .office-block__role {
+  font-size: clamp(0.92rem, 2.7vw, 0.96rem);
+  line-height: 1.9;
+}
+
+@media (max-width: 700px) {
   .offices-strip { grid-template-columns: 1fr; }
 }

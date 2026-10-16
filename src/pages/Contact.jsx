@@ -6,54 +6,51 @@ import './Contact.css'
 
 export default function Contact() {
   const { t } = useLanguage()
-  const { contact, company, offices } = t
+  const c = t.contact
+  const { phone, email } = t.company
 
   return (
     <div className="page-wrapper">
 
-      {/* Hero */}
       <div className="contact-hero">
         <div className="contact-hero__rings" aria-hidden="true">
           <ContactRings />
         </div>
-        <div className="contact-hero__content">
-          <span className="label label--gold">{contact.label}</span>
-          <h1 className="contact-hero__title">{contact.title}</h1>
-          <p className="contact-hero__sub">{contact.sub}</p>
-        </div>
+        <span className="label label--gold">{c.label}</span>
+        <h1 className="contact-hero__title">{c.title}</h1>
+        <p className="contact-hero__sub">{c.sub}</p>
       </div>
 
-      {/* Body */}
-      <div className="page-body">
+      <div className="contact-body">
 
         <div className="contact-cards">
+          {/* Phone */}
           <div className="contact-card">
-            <div className="contact-card__icon">
-              <PhoneIcon />
-            </div>
-            <span className="label">{contact.phoneLabel}</span>
-            <div className="contact-card__value">{company.phone}</div>
-            <a className="contact-card__action" href={`tel:${company.phone}`}>
-              {contact.phoneAction} <ArrowRight size={14} />
+            <div className="contact-card__icon"><PhoneIcon /></div>
+            <div className="contact-card__label">{c.phoneLabel}</div>
+            <div className="contact-card__value">{phone}</div>
+            <a className="contact-card__action" href={`tel:${phone.replace(/\s/g, '')}`}>
+              {c.phoneAction}
+              <ArrowRight size={14} />
             </a>
           </div>
 
+          {/* Email */}
           <div className="contact-card">
-            <div className="contact-card__icon">
-              <EmailIcon />
-            </div>
-            <span className="label">{contact.emailLabel}</span>
-            <div className="contact-card__value">{company.email}</div>
-            <a className="contact-card__action" href={`mailto:${company.email}`}>
-              {contact.emailAction} <ArrowRight size={14} />
+            <div className="contact-card__icon"><EmailIcon /></div>
+            <div className="contact-card__label">{c.emailLabel}</div>
+            <div className="contact-card__value">{email}</div>
+            <a className="contact-card__action" href={`mailto:${email}`}>
+              {c.emailAction}
+              <ArrowRight size={14} />
             </a>
           </div>
         </div>
 
-        <span className="label" style={{ marginTop: '4rem', display: 'block' }}>{contact.officesLabel}</span>
-        <h2 className="section-title">{contact.officesTitle}</h2>
+        <span className="label">{c.officesLabel}</span>
+        <h2 className="section-title">{c.officesTitle}</h2>
         <div className="contact-offices">
-          {offices.map((o) => (
+          {t.offices.map((o) => (
             <div className="contact-office" key={o.country}>
               <span className="contact-office__flag">{o.flag}</span>
               <div>
@@ -64,17 +61,15 @@ export default function Contact() {
             </div>
           ))}
         </div>
-
       </div>
 
-      {/* Back to home nav */}
       <div className="page-nav-footer">
         <div>
-          <div className="page-nav-footer__label">{contact.backLabel}</div>
-          <div className="page-nav-footer__title">{contact.backTitle}</div>
+          <div className="page-nav-footer__label">{c.backLabel}</div>
+          <div className="page-nav-footer__title">{c.backTitle}</div>
         </div>
         <Link to="/" className="page-nav-footer__btn">
-          <span>{contact.goHome}</span>
+          <span>{c.goHome}</span>
           <ArrowRight />
         </Link>
       </div>

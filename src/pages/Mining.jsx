@@ -7,46 +7,38 @@ import './InnerPage.css'
 
 export default function Mining() {
   const { t } = useLanguage()
-  const { mining } = t
+  const p = t.mining
 
   return (
     <div className="page-wrapper">
-
-      {/* Hero */}
       <div className="page-hero page-hero--mining">
         <div className="page-hero__bg" />
         <MiningHeroDeco />
         <div className="page-hero__content">
-          <span className="label label--gold">{mining.circle}</span>
-          <h1 className="page-hero__title">{mining.title}</h1>
-          <p className="page-hero__slogan">{mining.slogan}</p>
+          <span className="label label--gold">{p.circle}</span>
+          <h1 className="page-hero__title">{p.title}</h1>
+          <p className="page-hero__slogan">{p.slogan}</p>
         </div>
       </div>
 
-      {/* Body */}
       <div className="page-body">
-
         <div className="split">
           <div className="split-text">
-            <span className="label">{mining.introLabel}</span>
-            <h2 className="section-title">{mining.introTitle}</h2>
-            {mining.intro.map((p, i) => <p key={i}>{p}</p>)}
+            <span className="label">{p.introLabel}</span>
+            <h2 className="section-title">{p.introTitle}</h2>
+            {p.intro.map((para, i) => <p key={i}>{para}</p>)}
           </div>
           <div className="split-visual">
             <MiningIllustration />
           </div>
         </div>
 
-        <span className="label">{mining.servicesLabel}</span>
-        <h2 className="section-title">{mining.servicesTitle}</h2>
-        <ServicesList items={mining.services} />
+        <span className="label">{p.servicesLabel}</span>
+        <h2 className="section-title">{p.servicesTitle}</h2>
+        <ServicesList items={p.services} />
       </div>
 
-      <PageNavFooter
-        label={mining.nextLabel}
-        title={mining.next.title}
-        to={mining.next.path}
-      />
+      <PageNavFooter label={p.nextLabel} title={p.next.title} to={p.next.path} />
       <SiteFooter />
     </div>
   )

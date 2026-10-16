@@ -10,7 +10,7 @@ export default function PageNavFooter({ label, title, to }) {
     <div className="page-nav-footer">
       <div>
         <div className="page-nav-footer__label">{label}</div>
-        <div className="page-nav-footer__title">{title} →</div>
+        <div className="page-nav-footer__title">{title}</div>
       </div>
       <Link to={to} className="page-nav-footer__btn">
         <span>{t.common.explore}</span>

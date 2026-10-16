@@ -7,46 +7,38 @@ import './InnerPage.css'
 
 export default function Services() {
   const { t } = useLanguage()
-  const { services } = t
+  const p = t.services
 
   return (
     <div className="page-wrapper">
-
-      {/* Hero */}
       <div className="page-hero page-hero--services">
         <div className="page-hero__bg" />
         <ServicesHeroDeco />
         <div className="page-hero__content">
-          <span className="label label--gold">{services.circle}</span>
-          <h1 className="page-hero__title">{services.title}</h1>
-          <p className="page-hero__slogan">{services.slogan}</p>
+          <span className="label label--gold">{p.circle}</span>
+          <h1 className="page-hero__title">{p.title}</h1>
+          <p className="page-hero__slogan">{p.slogan}</p>
         </div>
       </div>
 
-      {/* Body */}
       <div className="page-body">
-
         <div className="split">
           <div className="split-text">
-            <span className="label">{services.introLabel}</span>
-            <h2 className="section-title">{services.introTitle}</h2>
-            {services.intro.map((p, i) => <p key={i}>{p}</p>)}
+            <span className="label">{p.introLabel}</span>
+            <h2 className="section-title">{p.introTitle}</h2>
+            {p.intro.map((para, i) => <p key={i}>{para}</p>)}
           </div>
           <div className="split-visual">
             <ServicesIllustration />
           </div>
         </div>
 
-        <span className="label">{services.servicesLabel}</span>
-        <h2 className="section-title">{services.servicesTitle}</h2>
-        <ServicesList items={services.services} />
+        <span className="label">{p.servicesLabel}</span>
+        <h2 className="section-title">{p.servicesTitle}</h2>
+        <ServicesList items={p.services} />
       </div>
 
-      <PageNavFooter
-        label={services.nextLabel}
-        title={services.next.title}
-        to={services.next.path}
-      />
+      <PageNavFooter label={p.nextLabel} title={p.next.title} to={p.next.path} />
       <SiteFooter />
     </div>
   )

@@ -1,5 +1,8 @@
-/* ── Design Tokens ── */
+/* ════════════════════════════════════════
+   DESIGN TOKENS
+════════════════════════════════════════ */
 :root {
+  /* Palette */
   --c0:    #08303f;
   --c1:    #2c7488;
   --c2:    #4b8697;
@@ -11,17 +14,31 @@
   --text:  #1a3540;
   --muted: #6a8f9a;
 
+  /* Typography — swapped per language */
+  --font-display: 'DM Serif Display', serif;
+  --font-body:    'DM Sans', sans-serif;
+
+  /* Layout */
   --nav-h: 64px;
   --max-w: 1100px;
-  --radius: 2px;
 
-  --font-display: 'DM Serif Display', serif;
-  --font-body: 'DM Sans', sans-serif;
-  --font-display-ar: 'Markazi Text', serif;
-  --font-body-ar: 'Cairo', sans-serif;
+  /* Fluid page gutter: 1.15rem on phones → 2rem on desktop */
+  --gutter: clamp(1.15rem, 4vw, 2rem);
+
+  /* Fluid section rhythm */
+  --section-y: clamp(3rem, 8vw, 5rem);
+  --block-gap: clamp(2.5rem, 7vw, 6rem);
 }
 
-/* ── Reset ── */
+/* Arabic type stack */
+.rtl {
+  --font-display: 'Markazi Text', serif;
+  --font-body:    'Cairo', sans-serif;
+}
+
+/* ════════════════════════════════════════
+   RESET
+════════════════════════════════════════ */
 *, *::before, *::after {
   margin: 0;
   padding: 0;
@@ -30,6 +47,8 @@
 
 html {
   scroll-behavior: smooth;
+  /* Stop iOS bumping font sizes on rotate */
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
@@ -38,107 +57,57 @@ body {
   color: var(--text);
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
+  /* Guard against long unbroken strings on narrow screens */
+  overflow-wrap: break-word;
 }
 
-a {
-  text-decoration: none;
-  color: inherit;
+a { text-decoration: none; color: inherit; }
+
+img, svg { max-width: 100%; height: auto; display: block; }
+
+button { font-family: inherit; }
+
+/* Visible keyboard focus */
+:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
 }
 
-/* ══════════════════════════════════════
-   RTL / Arabic support
-   The .rtl wrapper around <App> flips
-   direction-sensitive utilities and
-   swaps fonts to Arabic equivalents.
-══════════════════════════════════════ */
-.rtl {
-  direction: rtl;
-  text-align: right;
+/* Respect reduced-motion preference */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 
-.ltr {
-  direction: ltr;
-  text-align: left;
-}
-
-.rtl, .rtl body {
-  font-family: var(--font-body-ar);
-}
-
-.rtl .display,
-.rtl .home__title,
-.rtl .home__tagline,
-.rtl .home__card-title,
-.rtl .page-hero__title,
-.rtl .page-hero__slogan,
-.rtl .section-title,
-.rtl .contact-hero__title,
-.rtl .contact-card__value,
-.rtl .office-block__country,
-.rtl .contact-office__country,
-.rtl .page-nav-footer__title {
-  font-family: var(--font-display-ar);
-}
-
-/* Mirror split layout in RTL: the "flip" variant becomes the normal order */
-.rtl .split--flip {
-  direction: ltr;
-}
-.rtl .split--flip > * {
-  direction: rtl;
-}
-
-/* Mirror service-item dot side */
-.rtl .svc-item {
-  flex-direction: row-reverse;
-}
-
-/* Mirror office/contact blocks */
-.rtl .office-block,
-.rtl .contact-office {
-  flex-direction: row-reverse;
-  text-align: right;
-}
-
-/* Mirror page-nav-footer button arrow */
-.rtl .page-nav-footer__btn,
-.rtl .site-footer__item,
-.rtl .contact-card__action {
-  flex-direction: row-reverse;
-}
-
-.rtl .page-nav-footer {
-  flex-direction: row-reverse;
-}
-
-.rtl .site-footer {
-  flex-direction: row-reverse;
-}
-
-/* Arrow icons should flip horizontally in RTL */
-.rtl .icon-arrow {
-  transform: scaleX(-1);
-}
-
-/* ── Shared layout helpers ── */
+/* ════════════════════════════════════════
+   LAYOUT PRIMITIVES
+════════════════════════════════════════ */
 .page-wrapper {
   padding-top: var(--nav-h);
   min-height: 100vh;
+  min-height: 100dvh;   /* correct height on mobile browsers with URL bar */
   display: flex;
   flex-direction: column;
 }
 
 .page-body {
+  width: 100%;
   max-width: var(--max-w);
   margin: 0 auto;
-  padding: 5rem 2rem;
+  padding: var(--section-y) var(--gutter);
   flex: 1;
 }
 
-/* ── Typography helpers ── */
+/* ════════════════════════════════════════
+   TYPOGRAPHY
+════════════════════════════════════════ */
 .label {
-  font-size: 0.7rem;
-  letter-spacing: 0.38em;
+  font-size: clamp(0.72rem, 1.6vw, 0.78rem);
+  letter-spacing: 0.34em;
   text-transform: uppercase;
   color: var(--muted);
   margin-bottom: 0.7rem;
@@ -146,45 +115,54 @@ a {
 }
 
 .rtl .label {
-  font-size: 0.86rem;
-  letter-spacing: 0.03em;
+  font-size: clamp(0.86rem, 2.4vw, 0.95rem);
+  letter-spacing: 0.02em;
   font-weight: 500;
+  text-transform: none;
 }
 
-.label--gold { color: var(--gold); }
+.label--gold  { color: var(--gold); }
 .label--light { color: var(--c3); }
 
-.display {
+.section-title {
   font-family: var(--font-display);
-  line-height: 1.08;
+  font-size: clamp(1.5rem, 4.5vw, 2.4rem);
+  line-height: 1.2;
+  color: var(--c0);
+  margin-bottom: clamp(1.5rem, 4vw, 2rem);
 }
 
-/* ── Split layout ── */
+.rtl .section-title {
+  font-size: clamp(1.7rem, 5.5vw, 2.8rem);
+  line-height: 1.35;
+}
+
+/* ════════════════════════════════════════
+   SPLIT (text + illustration)
+════════════════════════════════════════ */
 .split {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 5rem;
+  gap: clamp(2rem, 6vw, 5rem);
   align-items: center;
-  margin-bottom: 6rem;
+  margin-bottom: var(--block-gap);
 }
 
-.split--flip {
-  direction: rtl;
-}
-.split--flip > * {
-  direction: ltr;
-}
+.split--flip     { direction: rtl; }
+.split--flip > * { direction: ltr; }
+.rtl .split--flip     { direction: ltr; }
+.rtl .split--flip > * { direction: rtl; }
 
 .split-text p {
-  font-size: 0.97rem;
+  font-size: clamp(0.95rem, 2.4vw, 1rem);
   line-height: 1.9;
   color: #4a7080;
   margin-bottom: 1.2rem;
 }
 
 .rtl .split-text p {
-  font-size: 1.05rem;
-  line-height: 2;
+  font-size: clamp(1.02rem, 3vw, 1.08rem);
+  line-height: 2.05;
 }
 
 .split-visual {
@@ -199,27 +177,44 @@ a {
   height: auto;
 }
 
-/* ── Services grid ── */
+/* Stack the split on tablet and below */
+@media (max-width: 900px) {
+  .split {
+    grid-template-columns: 1fr;
+  }
+  /* Illustration always sits below the text once stacked */
+  .split--flip { direction: ltr; }
+  .rtl .split--flip { direction: rtl; }
+  .split-visual { order: 2; }
+  .split-text   { order: 1; }
+  .split-visual svg { max-width: 320px; }
+}
+
+@media (max-width: 480px) {
+  .split-visual svg { max-width: 260px; }
+}
+
+/* ════════════════════════════════════════
+   SERVICES GRID
+════════════════════════════════════════ */
 .services-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 1px;
-  background: rgba(44, 116, 136, 0.1);
-  margin-top: 4rem;
+  background: rgba(44, 116, 136, 0.12);
+  margin-top: clamp(2rem, 5vw, 4rem);
 }
 
 .svc-item {
   background: var(--bg);
-  padding: 2rem;
+  padding: clamp(1.4rem, 4vw, 2rem);
   display: flex;
-  gap: 1.2rem;
+  gap: 1.1rem;
   align-items: flex-start;
   transition: background 0.2s;
 }
 
-.svc-item:hover {
-  background: var(--white);
-}
+.svc-item:hover { background: var(--white); }
 
 .svc-dot {
   width: 8px;
@@ -231,45 +226,46 @@ a {
 }
 
 .svc-title {
-  font-size: 0.9rem;
+  font-size: clamp(0.9rem, 2.4vw, 0.95rem);
   font-weight: 500;
   color: var(--c0);
   margin-bottom: 0.3rem;
 }
 
-.rtl .svc-title {
-  font-size: 1rem;
-}
+.rtl .svc-title { font-size: clamp(1rem, 3vw, 1.08rem); }
 
 .svc-desc {
-  font-size: 0.83rem;
+  font-size: clamp(0.83rem, 2.2vw, 0.87rem);
   color: var(--muted);
   line-height: 1.75;
 }
 
 .rtl .svc-desc {
-  font-size: 0.92rem;
-  line-height: 1.9;
+  font-size: clamp(0.92rem, 2.7vw, 0.96rem);
+  line-height: 1.95;
 }
 
-/* ── Page hero ── */
+@media (max-width: 700px) {
+  .services-grid { grid-template-columns: 1fr; }
+}
+
+/* ════════════════════════════════════════
+   PAGE HERO
+════════════════════════════════════════ */
 .page-hero {
-  height: 52vh;
-  min-height: 360px;
+  min-height: clamp(260px, 46vh, 420px);
   display: flex;
   align-items: center;
   position: relative;
   overflow: hidden;
+  padding: clamp(2.5rem, 6vw, 0) 0;
 }
 
-.page-hero__bg {
-  position: absolute;
-  inset: 0;
-}
+.page-hero__bg { position: absolute; inset: 0; }
 
 .page-hero__deco {
   position: absolute;
-  right: 0;
+  inset-inline-end: 0;
   top: 0;
   bottom: 0;
   height: 100%;
@@ -277,53 +273,58 @@ a {
   opacity: 0.18;
 }
 
-.rtl .page-hero__deco {
-  right: auto;
-  left: 0;
-  transform: scaleX(-1);
-}
-
 .page-hero__content {
   position: relative;
   z-index: 2;
-  padding: 0 5vw;
+  padding-inline: var(--gutter);
+  width: 100%;
 }
 
 .page-hero__title {
   font-family: var(--font-display);
-  font-size: clamp(2.2rem, 5vw, 4.5rem);
+  font-size: clamp(2rem, 8vw, 4.5rem);
   line-height: 1.08;
   color: var(--white);
-  margin-bottom: 1rem;
+  margin-bottom: 0.9rem;
+}
+
+.rtl .page-hero__title {
+  font-size: clamp(2.3rem, 9vw, 5rem);
+  line-height: 1.25;
 }
 
 .page-hero__slogan {
   font-family: var(--font-display);
   font-style: italic;
-  font-size: 1.1rem;
+  font-size: clamp(0.95rem, 2.8vw, 1.1rem);
   color: var(--c3);
+  max-width: 34ch;
 }
 
 .rtl .page-hero__slogan {
   font-style: normal;
+  font-size: clamp(1.05rem, 3.4vw, 1.3rem);
 }
 
-/* ── Responsive ── */
-@media (max-width: 768px) {
-  .split {
-    grid-template-columns: 1fr;
-    gap: 2.5rem;
-  }
-  .split--flip {
-    direction: ltr;
-  }
-  .rtl .split--flip {
-    direction: rtl;
-  }
-  .services-grid {
-    grid-template-columns: 1fr;
-  }
-  .page-body {
-    padding: 3rem 1.2rem;
-  }
+/* Decorative art gets cropped awkwardly on narrow screens — fade it back */
+@media (max-width: 760px) {
+  .page-hero__deco { width: 78%; opacity: 0.1; }
 }
+
+/* ════════════════════════════════════════
+   SHARED PAGE HERO BACKGROUNDS
+════════════════════════════════════════ */
+.page-hero--mining .page-hero__bg {
+  background: linear-gradient(135deg, #081e26 0%, #0f3d50 50%, #1a6070 100%);
+}
+.page-hero--trade .page-hero__bg {
+  background: linear-gradient(135deg, #0d2e38 0%, #1a5a6e 50%, #2c7488 100%);
+}
+.page-hero--services .page-hero__bg {
+  background: linear-gradient(135deg, #0c2830 0%, #174f60 50%, #2a7585 100%);
+}
+
+/* ════════════════════════════════════════
+   RTL ICON FLIP
+════════════════════════════════════════ */
+.rtl .icon-arrow { transform: scaleX(-1); }
