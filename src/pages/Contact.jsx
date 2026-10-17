@@ -1,11 +1,12 @@
 import { Link } from 'react-router-dom'
+import LocationMap from '../components/LocationMap'
 import { PhoneIcon, EmailIcon, ArrowRight, ContactRings } from '../components/icons/Icons'
 import SiteFooter from '../components/SiteFooter'
 import { useLanguage } from '../i18n/LanguageContext'
 import './Contact.css'
 
 export default function Contact() {
-  const { t } = useLanguage()
+  const { t, lang } = useLanguage()   // `lang` = current language ('ar' or 'en')
   const c = t.contact
   const { phone, email } = t.company
 
@@ -61,6 +62,16 @@ export default function Contact() {
             </div>
           ))}
         </div>
+
+        {/* Google Map */}
+        <div className="contact-map">
+          <LocationMap
+            lat={15.5007}   // replace with your office latitude
+            lng={32.5599}   // replace with your office longitude
+            language={lang === 'ar' ? 'ar' : 'en'}
+          />
+        </div>
+
       </div>
 
       <div className="page-nav-footer">
